@@ -10,7 +10,7 @@ module.exports = app => {
     const pullRequest = context.payload.pull_request
     const baseRepoName = pullRequest.base.repo.full_name
     const pullRequestNumber = pullRequest.number
-    
+
     // get all repo PR builds
     const repoBuilds = await BuildCollection.fetchByRepoName(baseRepoName)
     // filter builds by PR number
@@ -18,11 +18,13 @@ module.exports = app => {
     // get most recent
     const latestPullRequestBuild = pullRequestBuilds.latest()
 
-    // get job
-    const buildLog = await latestPullRequestBuild.getLog()
+    latestPullRequestBuild.waitUntilDone().then(async (completedBuild) => {
+      const buildLog = await completedBuild.getLog()
+      app.log(buildLog)
+    })
+
 
     // // poll job logs until it's complete
-    buildLog.waitUntilComplete().then(log => app.log(log))
     // when it's complete:
     //   parse it if it's a failure
     //   pass it whole if it's an error

@@ -53,7 +53,7 @@ class Build {
 
   pollUntilCompleted () {
     return pollPromise({
-      initiate: () => this.getCurrentState(),
+      initiate: () => this.updateState(),
       getCandidate: () => this,
       checkCandidate: (candidate) => candidate.isComplete(),
       wait: 20000

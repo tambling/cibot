@@ -13,18 +13,13 @@ const {
  * @param {import('probot').Application} app - Probot's Application class.
  */
 module.exports = app => {
-  app.on('pull_request', async context => {
+  app.on('pull_request.opened', async (context) => {
     const {
       pullRequest,
       owner,
       repo,
-      number,
-      action
-    } = processPayload(context)
-
-    if (action !== 'opened') {
-      return null
-    }
+      number
+    } = processPayload(context.payload)
 
     const repoSlug = `${owner}/${repo}`
 
@@ -35,8 +30,9 @@ module.exports = app => {
     latestMatchingBuild.pollUntilCompleted().then(async (completedBuild) => {
       const commentAttributes = {
         ...commentAttributesFromPullRequest(pullRequest),
-        ...commentAttributesFromBuild(completedBuild)
+        ...(await commentAttributesFromBuild(completedBuild))
       }
+
       const body = attributesToCommentBody(commentAttributes)
 
       context.github.issues.createComment({ owner, repo, number, body })

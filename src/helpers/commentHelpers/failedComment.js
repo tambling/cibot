@@ -1,4 +1,4 @@
-const { getFailures } = require('../../parsers/JestParser');
+const { getFailures } = require('../../parsers/JestParser')
 
 const constructFailedComment = ({audience, sha, log, link}) => `
 Hey @${audience}, looks like your commit at ${sha} had some failing tests: 

@@ -1,15 +1,15 @@
-const { get, getLog } = require('../clients/TravisClient');
+const { getLog } = require('../clients/TravisClient')
 
 class Log {
-  static async getByJobId(jobId) {
+  static async getByJobId (jobId) {
     const rawLog = await getLog(jobId)
 
     return new this(rawLog)
   }
 
-  constructor(rawLog) {
+  constructor (rawLog) {
     this.content = rawLog.content
   }
 }
 
-module.exports = Log;
+module.exports = Log

@@ -1,4 +1,4 @@
-const stripTerminalCharacters = string => 
+const stripTerminalCharacters = string =>
   string
     .replace(/\u001b\[[0-9;]*m/g, '')
 
@@ -23,4 +23,4 @@ const JestParser = {
   }
 }
 
-module.exports = JestParser;
+module.exports = JestParser

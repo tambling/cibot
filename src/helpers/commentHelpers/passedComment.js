@@ -4,4 +4,4 @@ Hey @${audience}, your commit at ${sha} passed all of its tests! One of my human
 If you want more details about the build, you can find them <a href="${link}" target="_blank">here</a>.
 `
 
-module.exports = constructPassedComment;
+module.exports = constructPassedComment

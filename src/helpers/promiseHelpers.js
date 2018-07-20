@@ -3,17 +3,18 @@ const promiseHelpers = {
     new Promise((resolve, reject) => {
       const poll = () => {
         initiate().then(() => {
-          const currentCandidate = getCandidate();
+          const currentCandidate = getCandidate()
           if (checkCandidate(currentCandidate)) {
-            resolve(currentCandidate);
+            resolve(currentCandidate)
           } else {
-            setTimeout(poll, wait);
+            setTimeout(poll, wait)
           }
         })
       }
 
-      poll();
+      poll()
     })
   )
 }
 
+module.exports = promiseHelpers

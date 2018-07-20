@@ -1,62 +1,64 @@
-const { get } = require('../clients/TravisClient');
-const Log = require('./Log');
+const Log = require('./Log')
 
-const constructWebLink = ({slug, id}) => 
+const { get } = require('../clients/TravisClient')
+
+const { pollPromise } = require('../helpers/promiseHelpers')
+
+const constructWebLink = ({slug, id}) =>
   `https://www.travis-ci.com/${slug}/builds/${id}`
 
 class Build {
-  constructor(attributes) {
+  constructor (attributes) {
     this.pullRequestNumber = attributes.pull_request_number
     this.startedAt = new Date(attributes.started_at)
-    this.jobIds = attributes.jobs.map(job => job.id) 
+    this.jobIds = attributes.jobs.map(job => job.id)
     this.state = attributes.state
     this.href = attributes['@href'].slice(1)
 
-    this.webLink = constructWebLink({ 
+    this.webLink = constructWebLink({
       slug: attributes.repository.slug,
       id: attributes.id
     })
   }
 
-  async updateState() {
+  async updateState () {
     const attributes = await get(this.href)
 
     this.state = attributes.state
   }
 
-  isPassed() {
-    return this.state === 'passed';
+  isPassed () {
+    return this.state === 'passed'
   }
 
-  isFailed() {
-    return this.state === 'failed';
+  isFailed () {
+    return this.state === 'failed'
   }
 
-  isErrored() {
-    return this.state === 'errored';
+  isErrored () {
+    return this.state === 'errored'
   }
 
-  isComplete() {
+  isComplete () {
     return this.isPassed() || this.isFailed() || this.isErrored()
   }
 
-  getLog() {
+  getLog () {
     if (this.jobIds.length) {
       return Log.getByJobId(this.jobIds[0])
-    } 
+    }
 
     return null
   }
 
-  pollUntilCompleted() {
+  pollUntilCompleted () {
     return pollPromise({
       initiate: () => this.getCurrentState(),
       getCandidate: () => this,
-      checkCandidate: (candidate) => candidate.isComplete();
+      checkCandidate: (candidate) => candidate.isComplete(),
       wait: 20000
     })
-  }  
+  }
 }
 
-module.exports = Build;
-
+module.exports = Build

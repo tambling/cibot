@@ -1,4 +1,4 @@
-const { getErrors } = require('../../parsers/JestParser');
+const { getErrors } = require('../../parsers/JestParser')
 
 const constructErroredComment = ({ audience, sha, log, link }) => {
   const errors = getErrors(log)
@@ -20,6 +20,6 @@ If you want more information, you can check out the build <a href="${link}" targ
 Hey @${audience}, the build for your commit at ${sha} errored out. I wasn't able to find anything that looked like an Node error, so you should probably check out <a href="${link}" target="_blank">the build</a> and see if you have better luck with it.
 `
   }
-};
+}
 
 module.exports = constructErroredComment

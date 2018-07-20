@@ -1,8 +1,8 @@
 const BuildCollection = require('./src/models/BuildCollection')
 
-const { processPayload } = require('./src/helpers/contextHelpers');
+const { processPayload } = require('./src/helpers/contextHelpers')
 
-const { 
+const {
   commentAttributesFromPullRequest,
   commentAttributesFromBuild,
   attributesToCommentBody
@@ -20,9 +20,13 @@ module.exports = app => {
       repo,
       number,
       action
-    } = processPayload(context);
+    } = processPayload(context)
 
-    const repoSlug = `${owner}/${repo}`;
+    if (action !== 'opened') {
+      return null
+    }
+
+    const repoSlug = `${owner}/${repo}`
 
     const repoBuilds = await BuildCollection.getByRepoSlug(repoSlug)
     const matchingBuilds = await repoBuilds.pollForPullRequest(number)
@@ -33,9 +37,9 @@ module.exports = app => {
         ...commentAttributesFromPullRequest(pullRequest),
         ...commentAttributesFromBuild(completedBuild)
       }
-      const body = attributesToCommentBody(commentAttributes) 
+      const body = attributesToCommentBody(commentAttributes)
 
-      const result = await context.github.issues.createComment({owner, repo, number, body })
+      context.github.issues.createComment({ owner, repo, number, body })
     })
   })
 }

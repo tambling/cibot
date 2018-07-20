@@ -1,6 +1,6 @@
-const constructPassedComment = require('./passedComment');
-const constructFailedComment = require('./failedComment');
-const constructErroredComment = require('./erroredComment');
+const constructPassedComment = require('./passedComment')
+const constructFailedComment = require('./failedComment')
+const constructErroredComment = require('./erroredComment')
 
 const commentHelpers = {
   commentAttributesFromPullRequest: pullRequest => ({
@@ -14,9 +14,9 @@ const commentHelpers = {
     return {
       outcome: build.state,
       link: build.webLink,
-      log: log.content,
+      log: log.content
     }
-  }
+  },
 
   attributesToCommentBody: ({ audience, sha, outcome, link, log }) => {
     if (outcome === 'passed') {
@@ -24,23 +24,23 @@ const commentHelpers = {
         audience,
         sha,
         link
-      });
+      })
     } else if (outcome === 'failed') {
       return constructFailedComment({
         audience,
         sha,
         log,
         link
-      });
+      })
     } else if (outcome === 'errored') {
       return constructErroredComment({
         audience,
         sha,
         log,
         link
-      });
+      })
     }
   }
 }
 
-module.exports = commentHelpers;
+module.exports = commentHelpers

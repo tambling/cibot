@@ -1,63 +1,66 @@
-const { get, getRepoBuilds } = require('../clients/TravisClient');
-const Build = require('./Build');
+const Build = require('./Build')
+
+const { get, getRepoBuilds } = require('../clients/TravisClient')
+
+const { pollPromise } = require('../helpers/promiseHelpers')
 
 class BuildCollection {
-  static async getByRepoSlug(slug) {
-    const attributes = await getRepoBuilds(slug);
+  static async getByRepoSlug (slug) {
+    const attributes = await getRepoBuilds(slug)
 
-    const { builds } = attributes;
+    const { builds } = attributes
     const href = attributes['@href'].slice(1)
 
     return new this({href, builds})
   }
 
-  constructor({href, subset: false, builds}) {
-    this.href = href;
+  constructor ({href, subset = false, builds}) {
+    this.href = href
     this.subset = subset
     this.setBuilds(builds)
   }
 
-  setBuilds(newBuilds) {
-    this.builds = newBuilds.map(rawBuild => 
+  setBuilds (newBuilds) {
+    this.builds = newBuilds.map(rawBuild =>
       rawBuild.constructor === Build ? rawBuild : new Build(rawBuild)
     )
   }
 
-  async updateBuilds() {
+  async updateBuilds () {
     if (this.subset) {
-      console.warn("BuildCollection calling fetchBuilds with an href that points to its superset!");
+      console.warn('BuildCollection calling fetchBuilds with an href that points to its superset!')
     }
 
     const attributes = await get(this.href)
-    this.setBuilds(attributes.builds);
+    this.setBuilds(attributes.builds)
   }
 
-  forPullRequest(pullRequestNumber) {
-    const matchingBuilds = this.builds.filter(build => 
+  forPullRequest (pullRequestNumber) {
+    const matchingBuilds = this.builds.filter(build =>
       build.pullRequestNumber === pullRequestNumber
     )
 
     return new this.constructor({
-      ...this, 
-      builds: matchingBuilds, 
+      ...this,
+      builds: matchingBuilds,
       subset: true
-    });
+    })
   }
 
-  latest() {
-    return builds.reduce((previous, current) => 
+  latest () {
+    return this.builds.reduce((previous, current) =>
       previous.startedAt > current.startedAt ? previous : current
     )
   }
 
-  pollForPullRequest(pullRequestNumber) {
+  pollForPullRequest (pullRequestNumber) {
     return pollPromise({
       initiate: () => this.updateBuilds(),
       getCandidate: () => this.forPullRequest(pullRequestNumber),
-      checkCandidate: (candidate) => candidate.builds.length
+      checkCandidate: (candidate) => candidate.builds.length,
       wait: 20000
-    });
+    })
   }
 }
 
-module.exports = BuildCollection;
+module.exports = BuildCollection

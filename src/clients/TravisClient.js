@@ -18,7 +18,7 @@ const TravisClient = {
       { headers }
     )
 
-    return await response.json()
+    return response.json()
   },
 
   getRepoBuilds: async (repo) => {
@@ -29,7 +29,7 @@ const TravisClient = {
       { headers }
     )
 
-    return await response.json()
+    return response.json()
   },
 
   getLog: async(jobId) => {
@@ -38,8 +38,8 @@ const TravisClient = {
       { headers }
     )
 
-    return await response.json()
+    return response.json()
   }
 }
 
-module.exports = TravisClient;
+module.exports = TravisClient

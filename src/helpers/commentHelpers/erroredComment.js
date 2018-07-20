@@ -7,13 +7,13 @@ const constructErroredComment = ({ audience, sha, log, link }) => {
     return `
 Hey @${audience}, the build for your commit at ${sha} errored out. The error message was a bit too detailed to put in a comment, but here's a preview: 
 <pre>${errors[0]}</pre>
-If you want more information, you can check out the build <a href="${link}" target="_blank">here</a>.
+For more details, you can see the whole build log <a href="${link}" target="_blank">here</a>.
     `
   } else if (errors.length > 0 && errors.length <= 5) {
     return `
 Hey @${audience}, the build for your commit at ${sha} errored out. Here are the error logs I was able to find: 
 <pre>${errors.join('\n')}</pre>
-If you want more information, you can check out the build <a href="${link}" target="_blank">here</a>.
+For more details, you can see the whole build log <a href="${link}" target="_blank">here</a>.
     `
   } else {
     return `

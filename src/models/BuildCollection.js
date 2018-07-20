@@ -1,17 +1,35 @@
-const { getRepoBuilds } = require('../clients/TravisClient');
+const { get, getRepoBuilds } = require('../clients/TravisClient');
 const Build = require('./Build');
 
 class BuildCollection {
-  static async fetchByRepoName(repoName) {
-    const rawBuilds = await getRepoBuilds(repoName);
+  static async getByRepoSlug(slug) {
+    const attributes = await getRepoBuilds(slug);
 
-    return new this(rawBuilds.builds)
+    const { builds } = attributes;
+    const href = attributes['@href'].slice(1)
+
+    return new this({href, builds})
   }
 
-  constructor(rawBuilds) {
-    this.builds = rawBuilds.map(rawBuild => 
+  constructor({href, subset: false, builds}) {
+    this.href = href;
+    this.subset = subset
+    this.setBuilds(builds)
+  }
+
+  setBuilds(newBuilds) {
+    this.builds = newBuilds.map(rawBuild => 
       rawBuild.constructor === Build ? rawBuild : new Build(rawBuild)
     )
+  }
+
+  async updateBuilds() {
+    if (this.subset) {
+      console.warn("BuildCollection calling fetchBuilds with an href that points to its superset!");
+    }
+
+    const attributes = await get(this.href)
+    this.setBuilds(attributes.builds);
   }
 
   forPullRequest(pullRequestNumber) {
@@ -19,15 +37,26 @@ class BuildCollection {
       build.pullRequestNumber === pullRequestNumber
     )
 
-    return new this.constructor(matchingBuilds)
+    return new this.constructor({
+      ...this, 
+      builds: matchingBuilds, 
+      subset: true
+    });
   }
 
   latest() {
-    const buildsSortedByDate = this.builds.sort((a, b) => 
-      b.startedAt - a.startedAt
+    return builds.reduce((previous, current) => 
+      previous.startedAt > current.startedAt ? previous : current
     )
+  }
 
-    return buildsSortedByDate[0]
+  pollForPullRequest(pullRequestNumber) {
+    return pollPromise({
+      initiate: () => this.updateBuilds(),
+      getCandidate: () => this.forPullRequest(pullRequestNumber),
+      checkCandidate: (candidate) => candidate.builds.length
+      wait: 20000
+    });
   }
 }
 

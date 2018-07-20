@@ -1,36 +1,41 @@
 const BuildCollection = require('./src/models/BuildCollection')
 
-/**
+const { processPayload } = require('./src/helpers/contextHelpers');
+
+const { 
+  commentAttributesFromPullRequest,
+  commentAttributesFromBuild,
+  attributesToCommentBody
+} = require('./src/helpers/commentHelpers')
+
+/*
  * This is the entry point for your Probot App.
  * @param {import('probot').Application} app - Probot's Application class.
  */
-
 module.exports = app => {
   app.on('pull_request', async context => {
-    const pullRequest = context.payload.pull_request
-    const baseRepoName = pullRequest.base.repo.full_name
-    const pullRequestNumber = pullRequest.number
+    const {
+      pullRequest,
+      owner,
+      repo,
+      number,
+      action
+    } = processPayload(context);
 
-    // get all repo PR builds
-    const repoBuilds = await BuildCollection.fetchByRepoName(baseRepoName)
-    // filter builds by PR number
-    const pullRequestBuilds = repoBuilds.forPullRequest(pullRequestNumber)
-    // get most recent
-    const latestPullRequestBuild = pullRequestBuilds.latest()
+    const repoSlug = `${owner}/${repo}`;
 
-    latestPullRequestBuild.waitUntilDone().then(async (completedBuild) => {
-      const buildLog = await completedBuild.getLog()
-      app.log(buildLog)
+    const repoBuilds = await BuildCollection.getByRepoSlug(repoSlug)
+    const matchingBuilds = await repoBuilds.pollForPullRequest(number)
+    const latestMatchingBuild = matchingBuilds.latest()
+
+    latestMatchingBuild.pollUntilCompleted().then(async (completedBuild) => {
+      const commentAttributes = {
+        ...commentAttributesFromPullRequest(pullRequest),
+        ...commentAttributesFromBuild(completedBuild)
+      }
+      const body = attributesToCommentBody(commentAttributes) 
+
+      const result = await context.github.issues.createComment({owner, repo, number, body })
     })
-
-
-    // // poll job logs until it's complete
-    // when it's complete:
-    //   parse it if it's a failure
-    //   pass it whole if it's an error
-    //   set a flag if it passes
-    //
-    // put together a comment with the parsed output
-    // send the comment up to GitHub
   })
 }

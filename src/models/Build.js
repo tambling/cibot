@@ -1,20 +1,27 @@
 const { get } = require('../clients/TravisClient');
 const Log = require('./Log');
 
+const constructWebLink = ({slug, id}) => 
+  `https://www.travis-ci.com/${slug}/builds/${id}`
+
 class Build {
-  constructor(rawBuild) {
-    this.pullRequestNumber = rawBuild.pull_request_number
-    this.startedAt = new Date(rawBuild.started_at)
-    this.jobIds = rawBuild.jobs.map(job => job.id) 
-    this.state = rawBuild.state
-    this.href = rawBuild['@href'].slice(1)
+  constructor(attributes) {
+    this.pullRequestNumber = attributes.pull_request_number
+    this.startedAt = new Date(attributes.started_at)
+    this.jobIds = attributes.jobs.map(job => job.id) 
+    this.state = attributes.state
+    this.href = attributes['@href'].slice(1)
+
+    this.webLink = constructWebLink({ 
+      slug: attributes.repository.slug,
+      id: attributes.id
+    })
   }
 
-  async getCurrentState() {
-    const rawBuild = await get(this.href)
+  async updateState() {
+    const attributes = await get(this.href)
 
-    console.log(rawBuild)
-    this.state = rawBuild.state
+    this.state = attributes.state
   }
 
   isPassed() {
@@ -41,23 +48,14 @@ class Build {
     return null
   }
 
-  waitUntilDone() {
-    return new Promise((resolve, reject) => {
-      const updateAndCheckCompleteness = () => {
-        console.log('Updating and checking completeness')
-        this.getCurrentState().then(() => {
-          if (this.isComplete()) {
-            resolve(this);
-          } else {
-            setTimeout(updateAndCheckCompleteness, 20000);
-          }
-        })
-      }
-
-      updateAndCheckCompleteness();
+  pollUntilCompleted() {
+    return pollPromise({
+      initiate: () => this.getCurrentState(),
+      getCandidate: () => this,
+      checkCandidate: (candidate) => candidate.isComplete();
+      wait: 20000
     })
   }  
-
 }
 
 module.exports = Build;

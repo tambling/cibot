@@ -8,9 +8,7 @@ class Log {
   }
 
   constructor(rawLog) {
-    this.href = rawLog['@href'].slice(1)
     this.content = rawLog.content
-    this.complete = rawLog.log_parts.some(log_part => log_part.final)
   }
 }
 

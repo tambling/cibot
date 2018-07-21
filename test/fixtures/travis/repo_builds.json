@@ -1,0 +1,546 @@
+{
+  "@type": "builds",
+  "@href": "/repo/tambling%2fexponentiate/builds",
+  "@representation": "standard",
+  "@pagination": {
+    "limit": 25,
+    "offset": 0,
+    "count": 8,
+    "is_first": true,
+    "is_last": true,
+    "next": null,
+    "prev": null,
+    "first": {
+      "@href": "/repo/tambling%2fexponentiate/builds",
+      "offset": 0,
+      "limit": 25
+    },
+    "last": {
+      "@href": "/repo/tambling%2fexponentiate/builds",
+      "offset": 0,
+      "limit": 25
+    }
+  },
+  "builds": [
+    {
+      "@type": "build",
+      "@href": "/build/79650414",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79650414,
+      "number": "8",
+      "state": "errored",
+      "duration": 27,
+      "event_type": "pull_request",
+      "previous_state": "passed",
+      "pull_request_title": "Add build error",
+      "pull_request_number": 3,
+      "started_at": "2018-07-21T23:31:05Z",
+      "finished_at": "2018-07-21T23:31:32Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/master",
+        "@representation": "minimal",
+        "name": "master"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125139178,
+        "sha": "85165c6f0e14700dc43f56ecc4015d9cf85728d4",
+        "ref": "refs/pull/3/merge",
+        "message": "Add build error",
+        "compare_url": "https://github.com/tambling/exponentiate/pull/3",
+        "committed_at": "2018-07-21T05:24:42Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135724978",
+          "@representation": "minimal",
+          "id": 135724978
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T23:31:33.045Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79650367",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79650367,
+      "number": "7",
+      "state": "failed",
+      "duration": 37,
+      "event_type": "pull_request",
+      "previous_state": "passed",
+      "pull_request_title": "Refactor and fail",
+      "pull_request_number": 2,
+      "started_at": "2018-07-21T23:29:11Z",
+      "finished_at": "2018-07-21T23:29:48Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/master",
+        "@representation": "minimal",
+        "name": "master"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125139107,
+        "sha": "d6c37389d2181f20abd48752fc1f4bd28d869f32",
+        "ref": "refs/pull/2/merge",
+        "message": "Refactor and fail",
+        "compare_url": "https://github.com/tambling/exponentiate/pull/2",
+        "committed_at": "2018-07-21T05:23:22Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135724853",
+          "@representation": "minimal",
+          "id": 135724853
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T23:29:48.385Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79650349",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79650349,
+      "number": "6",
+      "state": "passed",
+      "duration": 37,
+      "event_type": "pull_request",
+      "previous_state": "passed",
+      "pull_request_title": "Refactor and pass tests",
+      "pull_request_number": 1,
+      "started_at": "2018-07-21T23:27:47Z",
+      "finished_at": "2018-07-21T23:28:24Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/master",
+        "@representation": "minimal",
+        "name": "master"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125139074,
+        "sha": "aa7bd7ad6a6de9c757c1f7c6c05b10197532493b",
+        "ref": "refs/pull/1/merge",
+        "message": "Refactor and pass tests",
+        "compare_url": "https://github.com/tambling/exponentiate/pull/1",
+        "committed_at": "2018-07-21T05:19:24Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135724823",
+          "@representation": "minimal",
+          "id": 135724823
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T23:28:24.329Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79650319",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79650319,
+      "number": "5",
+      "state": "errored",
+      "duration": 28,
+      "event_type": "push",
+      "previous_state": null,
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-07-21T23:25:08Z",
+      "finished_at": "2018-07-21T23:25:36Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/add-invalid-package",
+        "@representation": "minimal",
+        "name": "add-invalid-package"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125139017,
+        "sha": "c82d96b6adbde804000e991c0c2d4aa779222cd1",
+        "ref": "refs/heads/add-invalid-package",
+        "message": "Add build error",
+        "compare_url": "https://github.com/tambling/exponentiate/commit/c82d96b6adbd",
+        "committed_at": "2018-07-21T05:24:42Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135724761",
+          "@representation": "minimal",
+          "id": 135724761
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T23:25:36.697Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79650315",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79650315,
+      "number": "4",
+      "state": "passed",
+      "duration": 38,
+      "event_type": "push",
+      "previous_state": null,
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-07-21T23:24:53Z",
+      "finished_at": "2018-07-21T23:25:31Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/refactor-but-pass",
+        "@representation": "minimal",
+        "name": "refactor-but-pass"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125139007,
+        "sha": "279015e3f648f562845667f1db90a431101d4e42",
+        "ref": "refs/heads/refactor-but-pass",
+        "message": "Refactor and pass tests",
+        "compare_url": "https://github.com/tambling/exponentiate/commit/279015e3f648",
+        "committed_at": "2018-07-21T05:19:24Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135724746",
+          "@representation": "minimal",
+          "id": 135724746
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T23:25:31.494Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79650307",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79650307,
+      "number": "3",
+      "state": "failed",
+      "duration": 37,
+      "event_type": "push",
+      "previous_state": null,
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-07-21T23:23:20Z",
+      "finished_at": "2018-07-21T23:23:57Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/refactor-and-fail",
+        "@representation": "minimal",
+        "name": "refactor-and-fail"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125138990,
+        "sha": "d34464ba9fa760cf9cac5f141e30d45bc3e038b6",
+        "ref": "refs/heads/refactor-and-fail",
+        "message": "Refactor and fail",
+        "compare_url": "https://github.com/tambling/exponentiate/commit/d34464ba9fa7",
+        "committed_at": "2018-07-21T05:23:22Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135724729",
+          "@representation": "minimal",
+          "id": 135724729
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T23:23:57.889Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79634291",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79634291,
+      "number": "2",
+      "state": "passed",
+      "duration": 36,
+      "event_type": "push",
+      "previous_state": "passed",
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-07-21T05:17:33Z",
+      "finished_at": "2018-07-21T05:18:09Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/master",
+        "@representation": "minimal",
+        "name": "master"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125109867,
+        "sha": "600e7417e202ed2a03b863a0cadfb5e2188109e8",
+        "ref": "refs/heads/master",
+        "message": "Add supporting materials",
+        "compare_url": "https://github.com/tambling/exponentiate/compare/6d18dd8f68a6...600e7417e202",
+        "committed_at": "2018-07-21T05:17:15Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135694768",
+          "@representation": "minimal",
+          "id": 135694768
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-21T05:18:09.482Z"
+    },
+    {
+      "@type": "build",
+      "@href": "/build/79612435",
+      "@representation": "standard",
+      "@permissions": {
+        "read": true,
+        "cancel": true,
+        "restart": true
+      },
+      "id": 79612435,
+      "number": "1",
+      "state": "passed",
+      "duration": 46,
+      "event_type": "push",
+      "previous_state": null,
+      "pull_request_title": null,
+      "pull_request_number": null,
+      "started_at": "2018-07-20T19:44:00Z",
+      "finished_at": "2018-07-20T19:44:46Z",
+      "private": false,
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/5420967",
+        "@representation": "minimal",
+        "id": 5420967,
+        "name": "exponentiate",
+        "slug": "tambling/exponentiate"
+      },
+      "branch": {
+        "@type": "branch",
+        "@href": "/repo/5420967/branch/master",
+        "@representation": "minimal",
+        "name": "master"
+      },
+      "tag": null,
+      "commit": {
+        "@type": "commit",
+        "@representation": "minimal",
+        "id": 125066974,
+        "sha": "6d18dd8f68a6a600091b477b7bdce5d84a994ba3",
+        "ref": "refs/heads/master",
+        "message": "Initial commit",
+        "compare_url": "https://github.com/tambling/exponentiate/commit/6d18dd8f68a6",
+        "committed_at": "2018-07-20T19:43:27Z"
+      },
+      "jobs": [
+        {
+          "@type": "job",
+          "@href": "/job/135651896",
+          "@representation": "minimal",
+          "id": 135651896
+        }
+      ],
+      "stages": [
+
+      ],
+      "created_by": {
+        "@type": "user",
+        "@href": "/user/13636",
+        "@representation": "minimal",
+        "id": 13636,
+        "login": "tambling"
+      },
+      "updated_at": "2018-07-20T19:44:46.591Z"
+    }
+  ]
+}

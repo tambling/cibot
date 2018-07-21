@@ -1,7 +1,7 @@
 const BuildCollection = require('./src/models/BuildCollection')
 
+const { shouldComment } = require('./src/helpers/configHelpers')
 const { processPayload } = require('./src/helpers/contextHelpers')
-
 const {
   commentAttributesFromPullRequest,
   commentAttributesFromBuild,
@@ -14,6 +14,8 @@ const {
  */
 module.exports = app => {
   app.on('pull_request.opened', async (context) => {
+    const config = await context.config('cibot.yml')
+
     const {
       pullRequest,
       owner,
@@ -35,7 +37,11 @@ module.exports = app => {
 
       const body = attributesToCommentBody(commentAttributes)
 
-      context.github.issues.createComment({ owner, repo, number, body })
+      if (shouldComment(config, completedBuild)) {
+        context.github.issues.createComment({ owner, repo, number, body })
+      } else {
+        app.log(`Dry run for ${owner}/${repo}#${number}: \n${body}`)
+      }
     })
   })
 }

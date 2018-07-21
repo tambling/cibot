@@ -55,8 +55,7 @@ class Build {
     return pollPromise({
       initiate: () => this.updateState(),
       getCandidate: () => this,
-      checkCandidate: (candidate) => candidate.isComplete(),
-      wait: 20000
+      checkCandidate: (candidate) => candidate.isComplete()
     })
   }
 }

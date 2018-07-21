@@ -57,8 +57,7 @@ class BuildCollection {
     return pollPromise({
       initiate: () => this.updateBuilds(),
       getCandidate: () => this.forPullRequest(pullRequestNumber),
-      checkCandidate: (candidate) => candidate.builds.length,
-      wait: 20000
+      checkCandidate: (candidate) => candidate.builds.length
     })
   }
 }

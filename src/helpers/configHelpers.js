@@ -4,11 +4,11 @@ const configHelpers = {
       return false
     }
 
-    const { commentOnPassed, commentOnFailed, commentOnErrored } = config
+    const { commentOnPass, commentOnFail, commentOnError } = config
 
-    return (commentOnPassed && build.isPassed()) ||
-      (commentOnFailed && build.isFailed()) ||
-      (commentOnErrored && build.isErrored())
+    return (commentOnPass && build.isPassed()) ||
+      (commentOnFail && build.isFailed()) ||
+      (commentOnError && build.isErrored())
   }
 }
 

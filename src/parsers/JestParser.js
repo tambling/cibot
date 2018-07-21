@@ -2,7 +2,7 @@ const stripTerminalCharacters = string =>
   string
     .replace(/\u001b\[[0-9;]*m/g, '')
 
-const jestFailureRegEx = /✕ (.+) \(\d+ms\)/
+const jestFailureRegEx = /✕ (.+)( \(\d+ms\))?/
 const nodeErrorRegEx = /npm ERR! (.*)/
 
 const JestParser = {

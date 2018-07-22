@@ -31,15 +31,13 @@ const commentHelpers = {
       return constructFailedComment({
         audience,
         sha,
-        log,
         link,
         failures: getFailures(log)
       })
-    } else if (outcome === 'errored') {
+    } else {
       return constructErroredComment({
         audience,
         sha,
-        log,
         link,
         errors: getErrors(log)
       })

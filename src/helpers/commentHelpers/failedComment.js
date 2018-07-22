@@ -1,5 +1,5 @@
 
-const constructFailedComment = ({audience, sha, log, link, failures}) => {
+const constructFailedComment = ({audience, sha, link, failures}) => {
   const plural = failures.length > 1
 
   return `

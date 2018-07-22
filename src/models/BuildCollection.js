@@ -1,6 +1,6 @@
 const Build = require('./Build')
 
-const { get, getRepoBuilds } = require('../clients/TravisClient')
+const { get, getRepoBuilds } = require('../clients/travisClient')
 
 const { pollPromise } = require('../helpers/promiseHelpers')
 

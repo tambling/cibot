@@ -5,7 +5,7 @@ const stripTerminalCharacters = string =>
 const jestFailureRegEx = /✕ (.+)( \(\d+ms\))?/
 const nodeErrorRegEx = /npm ERR! (.*)/
 
-const JestParser = {
+const jestParser = {
   getFailures: (log) => (
     stripTerminalCharacters(log)
     .split('\r\n')
@@ -23,4 +23,4 @@ const JestParser = {
   }
 }
 
-module.exports = JestParser
+module.exports = jestParser

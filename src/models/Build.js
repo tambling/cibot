@@ -1,6 +1,6 @@
 const Log = require('./Log')
 
-const { get } = require('../clients/TravisClient')
+const { get } = require('../clients/travisClient')
 
 const { pollPromise } = require('../helpers/promiseHelpers')
 

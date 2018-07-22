@@ -1,3 +1,5 @@
+const { getFailures, getErrors } = require('../../parsers/jestParser')
+
 const constructPassedComment = require('./passedComment')
 const constructFailedComment = require('./failedComment')
 const constructErroredComment = require('./erroredComment')
@@ -30,14 +32,16 @@ const commentHelpers = {
         audience,
         sha,
         log,
-        link
+        link,
+        failures: getFailures(log)
       })
     } else if (outcome === 'errored') {
       return constructErroredComment({
         audience,
         sha,
         log,
-        link
+        link,
+        errors: getErrors(log)
       })
     }
   }

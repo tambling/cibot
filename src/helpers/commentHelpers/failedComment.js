@@ -1,7 +1,5 @@
-const { getFailures } = require('../../parsers/JestParser')
 
-const constructFailedComment = ({audience, sha, log, link}) => {
-  const failures = getFailures(log)
+const constructFailedComment = ({audience, sha, log, link, failures}) => {
   const plural = failures.length > 1
 
   return `

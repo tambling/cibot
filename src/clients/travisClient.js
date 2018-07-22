@@ -11,7 +11,7 @@ const constructTravisUrl = path => `${travisBaseUrl}/${path}`
 
 const escapeSlash = string => string.replace('/', '%2f')
 
-const TravisClient = {
+const travisClient = {
   get: async (path) => {
     const response = await fetch(
       constructTravisUrl(path),
@@ -42,4 +42,4 @@ const TravisClient = {
   }
 }
 
-module.exports = TravisClient
+module.exports = travisClient

@@ -1,8 +1,4 @@
-const { getErrors } = require('../../parsers/JestParser')
-
-const constructErroredComment = ({ audience, sha, log, link }) => {
-  const errors = getErrors(log)
-
+const constructErroredComment = ({ audience, sha, log, link, errors }) => {
   if (errors.length > 5) {
     return `
 Hi @${audience}, the CI build for your commit at ${sha} had an error. The error message began with: 

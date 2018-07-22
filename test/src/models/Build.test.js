@@ -1,12 +1,12 @@
 const Build = require('../../../src/models/Build')
 
-const travisClient = require('../../../src/clients/travisClient')
+const { get } = require('../../../src/clients/travisClient')
 jest.mock('../../../src/clients/travisClient')
 
 const Log = require('../../../src/models/Log')
 jest.mock('../../../src/models/Log')
 
-const {pollPromise} = require('../../../src/helpers/promiseHelpers')
+const { pollPromise } = require('../../../src/helpers/promiseHelpers')
 jest.mock('../../../src/helpers/promiseHelpers')
 
 describe('Build', () => {
@@ -34,13 +34,13 @@ describe('Build', () => {
 
   describe('updateState', () => {
     it('should fetch the latest state of the build', () => {
-      travisClient.get.mockResolvedValue({state: 'passed'})
+      get.mockResolvedValue({state: 'passed'})
 
       const build = new Build(rawAttributes)
 
       build.updateState().then(() => {
         expect(build.state).toBe('passed')
-        expect(travisClient.get.mock.calls[0][0]).toBe('build/1')
+        expect(get.mock.calls[0][0]).toBe('build/1')
       })
     })
   })

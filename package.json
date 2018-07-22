@@ -17,7 +17,8 @@
     "start": "probot run ./index.js",
     "lint": "standard --fix",
     "test": "jest && standard",
-    "test:watch": "jest --watch --notify --notifyMode=change --coverage"
+    "test:watch": "jest --watch --notify --notifyMode=change --coverage",
+    "test:coverage": "jest --coverage --collectCoverageFrom=src/**/*.js"
   },
   "dependencies": {
     "node-fetch": "^2.1.2",

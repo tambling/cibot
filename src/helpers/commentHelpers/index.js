@@ -5,11 +5,13 @@ const constructFailedComment = require('./failedComment')
 const constructErroredComment = require('./erroredComment')
 
 const commentHelpers = {
+  // Get comment attributes out of a raw Probot "pull request" payload.
   commentAttributesFromPullRequest: pullRequest => ({
     audience: pullRequest.user.login,
     sha: pullRequest.head.sha
   }),
 
+  // Get comment attributes out of an instance of Build.
   commentAttributesFromBuild: async (build) => {
     const log = await build.getLog()
 
@@ -20,6 +22,8 @@ const commentHelpers = {
     }
   },
 
+  // Route the attributes from the above two methods to the right comment
+  // interpolator.
   attributesToCommentBody: ({ audience, sha, outcome, link, log }) => {
     if (outcome === 'passed') {
       return constructPassedComment({

@@ -1,8 +1,13 @@
+// This is a fun one. It's factored out from Build#pollUntilComplete and
+// BuildCollection#pollForPullRequest. Given the three functions initiate,
+// getCandidate, and getCandidate, it initiates a polling loop where it runs
+// initiate(), then gets and checks the data that is being polled for. If it
+// doesn't find it, it gives up after maxTries.
 const promiseHelpers = {
   pollPromise: ({
     initiate,
-    checkCandidate,
     getCandidate,
+    checkCandidate,
     wait = 20000,
     maxTries = 100
   }) => (

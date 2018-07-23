@@ -12,6 +12,8 @@ const constructTravisUrl = path => `${travisBaseUrl}/${path}`
 const escapeSlash = string => string.replace('/', '%2f')
 
 const travisClient = {
+  // If you know the path, fetch it.
+  // Useful for objects that can introspect their own href.
   get: async (path) => {
     const response = await fetch(
       constructTravisUrl(path),
@@ -21,6 +23,7 @@ const travisClient = {
     return response.json()
   },
 
+  // Given a repo slug (e.g. 'user/repo'), fetch all associated builds.
   getRepoBuilds: async (repo) => {
     const escapedString = escapeSlash(repo)
 
@@ -32,6 +35,7 @@ const travisClient = {
     return response.json()
   },
 
+  // Given a job ID, fetch the associated log.
   getLog: async(jobId) => {
     const response = await fetch(
       constructTravisUrl(`job/${jobId}/log`),

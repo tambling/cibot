@@ -19,6 +19,7 @@ describe('Build', () => {
     '@href': '/build/1',
     repository: { slug: 'user/repo' }
   }
+
   describe('constructor', () => {
     it('creates a Build with the right properties', () => {
       const newBuild = new Build(rawAttributes)
@@ -33,15 +34,15 @@ describe('Build', () => {
   })
 
   describe('updateState', () => {
-    it('should fetch the latest state of the build', () => {
+    it('should fetch the latest state of the build', async () => {
       get.mockResolvedValue({state: 'passed'})
 
       const build = new Build(rawAttributes)
 
-      build.updateState().then(() => {
-        expect(build.state).toBe('passed')
-        expect(get.mock.calls[0][0]).toBe('build/1')
-      })
+      await build.updateState()
+
+      expect(build.state).toBe('passed')
+      expect(get.mock.calls[0][0]).toBe('build/1')
     })
   })
 
@@ -76,8 +77,8 @@ describe('Build', () => {
       const erroredBuild = new Build({...rawAttributes, state: 'errored'})
 
       const allCompleted = [passedBuild, failedBuild, erroredBuild]
-      .map(build => build.isComplete())
-      .every(value => value)
+        .map(build => build.isComplete())
+        .every(value => value)
 
       expect(allCompleted).toBe(true)
     })
@@ -107,12 +108,13 @@ describe('Build', () => {
   })
 
   describe('pollUntilCompleted', () => {
-    it('should call pollPromise with the right arguments', () => {
+    it('should call pollPromise with the right arguments', async () => {
       const build = new Build(rawAttributes)
+
       build.updateState = jest.fn()
       build.isComplete = jest.fn()
 
-      build.pollUntilCompleted()
+      await build.pollUntilCompleted()
 
       const args = pollPromise.mock.calls[0][0]
 

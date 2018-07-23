@@ -31,21 +31,20 @@ describe('BuildCollection', () => {
       getRepoBuilds.mockReset()
     })
 
-    it('calls getRepoBuilds with the slug', () => {
-      BuildCollection.getByRepoSlug('user/repo').then(() => {
-        expect(getRepoBuilds.mock.calls[0][0]).toBe('user/repo')
-      })
+    it('calls getRepoBuilds with the slug', async () => {
+      await BuildCollection.getByRepoSlug('user/repo')
+
+      expect(getRepoBuilds.mock.calls[0][0]).toBe('user/repo')
     })
 
-    it('creates a new BuildCollection with the right properties', () => {
-      BuildCollection.getByRepoSlug('user/repo').then((collection) => {
-        expect(collection.href).toBe('repo/user%2frepo/builds')
-        expect(collection.builds.length).toBe(2)
-      })
+    it('creates a new BuildCollection with the right properties', async () => {
+      const collection = await BuildCollection.getByRepoSlug('user/repo')
+      expect(collection.href).toBe('repo/user%2frepo/builds')
+      expect(collection.builds.length).toBe(2)
     })
   })
 
-  describe('updateBuilds', () => {
+  describe('updateBuilds', async () => {
     beforeEach(() => {
       get.mockResolvedValue({ builds: [
         {...rawBuildAttributes, id: 1},
@@ -53,18 +52,18 @@ describe('BuildCollection', () => {
         {...rawBuildAttributes, id: 3}
       ]})
     })
-    it('fetches the href of the BuildCollection', () => {
+    it('fetches the href of the BuildCollection', async () => {
       const buildCollection = new BuildCollection({
         href: 'build/collection',
         builds: []
       })
 
-      buildCollection.updateBuilds()
+      await buildCollection.updateBuilds()
 
       expect(get.mock.calls[0][0]).toBe('build/collection')
     })
 
-    it('warns if the BuildCollection is a subset', () => {
+    it('warns if the BuildCollection is a subset', async () => {
       global.console = { warn: jest.fn() }
 
       const buildCollection = new BuildCollection({
@@ -73,20 +72,20 @@ describe('BuildCollection', () => {
         subset: true
       })
 
-      buildCollection.updateBuilds()
+      await buildCollection.updateBuilds()
 
       expect(global.console.warn).toBeCalled()
     })
 
-    it('sets the builds of the BuildCollection', () => {
+    it('sets the builds of the BuildCollection', async () => {
       const buildCollection = new BuildCollection({
         builds: [],
         href: ''
       })
 
-      buildCollection.updateBuilds().then(() => {
-        expect(buildCollection.builds.length).toBe(3)
-      })
+      await buildCollection.updateBuilds()
+
+      expect(buildCollection.builds.length).toBe(3)
     })
   })
 

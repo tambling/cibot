@@ -39,7 +39,7 @@ describe('commentAttributesFromBuild', () => {
     const stubbedBuild = {
       state: 'passed',
       webLink: 'http://foo.bar',
-      getLog: jest.fn().mockResolvedValue({ content: 'Here is a log' })
+      getLog: () => Promise.resolve({ content: 'Here is a log' })
     }
 
     const expectedParsedAttributes = {
@@ -82,7 +82,10 @@ describe('attributesToCommentBody', () => {
   })
 
   it('assembles the right comment for multiple failed tests', () => {
-    jestParser.getFailures.mockReturnValue([ 'First failure', 'Second failure' ])
+    jestParser.getFailures.mockReturnValue([
+      'First failure',
+      'Second failure'
+    ])
 
     const actualComment = attributesToCommentBody({
       ...staticAttributes,
@@ -121,6 +124,7 @@ describe('attributesToCommentBody', () => {
 
     expect(actualComment).toEqual(expectedShortError)
   })
+
   it('assembles the right comment for no error message', () => {
     jestParser.getErrors.mockReturnValue([])
 

@@ -2,10 +2,10 @@ process.env['TRAVIS_TOKEN'] = 'hello'
 
 const fetch = require('node-fetch')
 jest.mock('node-fetch')
+
 const travisClient = require('../../../src/clients/travisClient')
 
-const mockedJsonParse = jest.fn().mockResolvedValue({foo: 'bar'})
-fetch.mockResolvedValue({ json: mockedJsonParse })
+fetch.mockResolvedValue({ json: jest.fn().mockResolvedValue({foo: 'bar'}) })
 
 describe('travisClient', () => {
   afterEach(() => fetch.mockClear())
@@ -29,6 +29,7 @@ describe('travisClient', () => {
 
       expect(fetch.mock.calls[0][1]).toEqual({ headers: expectedHeaders })
     })
+
     it('returns the parsed JSON', async () => {
       const actualReturn = await travisClient.get('this/path')
 

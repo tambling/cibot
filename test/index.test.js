@@ -1,6 +1,5 @@
-const { Application, Context } = require('probot')
-
 const cibot = require('..')
+const { Application, Context } = require('probot')
 
 const fetch = require('node-fetch')
 jest.mock('node-fetch')
@@ -97,7 +96,8 @@ describe('cibot', () => {
 
     expect(app.log).toBeCalledWith(failLog)
   })
-  it('logs when not configured to comment on an erroring  build', async () => {
+
+  it('logs when not configured to comment on an erroring build', async () => {
     const payload = require('./fixtures/inputs/github/pull_request_with_error')
 
     await app.receive({event: 'pull_request.opened', payload})

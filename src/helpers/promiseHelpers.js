@@ -13,19 +13,18 @@ const promiseHelpers = {
   }) => (
     new Promise((resolve, reject) => {
       let tries = 0
-      const poll = () => {
-        initiate().then(() => {
-          tries += 1
+      const poll = async () => {
+        await initiate()
+        tries += 1
 
-          const currentCandidate = getCandidate()
-          if (checkCandidate(currentCandidate)) {
-            resolve(currentCandidate)
-          } else if (tries >= maxTries) {
-            reject(new Error('Maximum number of tries exceeded'))
-          } else {
-            setTimeout(poll, wait)
-          }
-        })
+        const currentCandidate = getCandidate()
+        if (checkCandidate(currentCandidate)) {
+          resolve(currentCandidate)
+        } else if (tries >= maxTries) {
+          reject(new Error('Maximum number of tries exceeded'))
+        } else {
+          setTimeout(poll, wait)
+        }
       }
 
       poll()

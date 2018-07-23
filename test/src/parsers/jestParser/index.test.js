@@ -1,5 +1,5 @@
-const { getFailures, getErrors } = require('../../../src/parsers/jestParser')
-const { failLog, errorLog } = require('../../fixtures/logExcerpts')
+const { getFailures, getErrors } = require('../../../../src/parsers/jestParser')
+const { failLog, errorLog } = require('./logExcerpts')
 
 describe('jestParser', () => {
   describe('getFailures', () => {
@@ -10,7 +10,7 @@ describe('jestParser', () => {
 
   describe('getErrors', () => {
     it('parses errors out of a raw log', () => {
-      expect(getErrors(errorLog)).toEqual(["404 Not Found: fake-package-that-doesnt-exist@^0.0.1"])
+      expect(getErrors(errorLog)).toEqual(['404 Not Found: fake-package-that-doesnt-exist@^0.0.1'])
     })
   })
 })

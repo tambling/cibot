@@ -29,19 +29,18 @@ module.exports = app => {
     const matchingBuilds = await repoBuilds.pollForPullRequest(number)
     const latestMatchingBuild = matchingBuilds.latest()
 
-    latestMatchingBuild.pollUntilCompleted().then(async (completedBuild) => {
-      const commentAttributes = {
-        ...commentAttributesFromPullRequest(pullRequest),
-        ...(await commentAttributesFromBuild(completedBuild))
-      }
+    const completedBuild = await latestMatchingBuild.pollUntilCompleted()
+    const commentAttributes = {
+      ...commentAttributesFromPullRequest(pullRequest),
+      ...(await commentAttributesFromBuild(completedBuild))
+    }
 
-      const body = attributesToCommentBody(commentAttributes)
+    const body = attributesToCommentBody(commentAttributes)
 
-      if (shouldComment(config, completedBuild)) {
-        context.github.issues.createComment({ owner, repo, number, body })
-      } else {
-        app.log(`Dry run for ${owner}/${repo}#${number}: \n${body}`)
-      }
-    })
+    if (shouldComment(config, completedBuild)) {
+      return context.github.issues.createComment({ owner, repo, number, body })
+    } else {
+      app.log(`Dry run for ${owner}/${repo}#${number}:\n${body}`)
+    }
   })
 }

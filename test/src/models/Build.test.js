@@ -10,15 +10,15 @@ const { pollPromise } = require('../../../src/helpers/promiseHelpers')
 jest.mock('../../../src/helpers/promiseHelpers')
 
 describe('Build', () => {
-      const rawAttributes = {
-        id: 1,
-        pull_request_number: 2,
-        started_at: '2000-01-01',
-        jobs: [{id: 3}],
-        state: 'started',
-        '@href': '/build/1',
-        repository: { slug: 'user/repo' }
-      }
+  const rawAttributes = {
+    id: 1,
+    pull_request_number: 2,
+    started_at: '2000-01-01',
+    jobs: [{id: 3}],
+    state: 'started',
+    '@href': '/build/1',
+    repository: { slug: 'user/repo' }
+  }
   describe('constructor', () => {
     it('creates a Build with the right properties', () => {
       const newBuild = new Build(rawAttributes)
@@ -71,21 +71,20 @@ describe('Build', () => {
 
   describe('isComplete', () => {
     it('is true if the build is passed, failed, or errored', () => {
-    const passedBuild = new Build({...rawAttributes, state: 'passed'})
-    const failedBuild = new Build({...rawAttributes, state: 'failed'})
-    const erroredBuild = new Build({...rawAttributes, state: 'errored'})
+      const passedBuild = new Build({...rawAttributes, state: 'passed'})
+      const failedBuild = new Build({...rawAttributes, state: 'failed'})
+      const erroredBuild = new Build({...rawAttributes, state: 'errored'})
 
-    const allCompleted = [passedBuild, failedBuild, erroredBuild]
+      const allCompleted = [passedBuild, failedBuild, erroredBuild]
       .map(build => build.isComplete())
-      .every(value => value) 
+      .every(value => value)
 
-    expect(allCompleted).toBe(true)
+      expect(allCompleted).toBe(true)
     })
 
     it('is false if the build is started', () => {
-    const startedBuild = new Build(rawAttributes)
+      const startedBuild = new Build(rawAttributes)
       expect(startedBuild.isComplete()).toBe(false)
-      
     })
   })
 
@@ -109,7 +108,7 @@ describe('Build', () => {
 
   describe('pollUntilCompleted', () => {
     it('should call pollPromise with the right arguments', () => {
-      const build = new Build(rawAttributes) 
+      const build = new Build(rawAttributes)
       build.updateState = jest.fn()
       build.isComplete = jest.fn()
 

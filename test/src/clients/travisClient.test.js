@@ -1,9 +1,9 @@
 process.env['TRAVIS_TOKEN'] = 'hello'
 
 const fetch = require('node-fetch')
+jest.mock('node-fetch')
 const travisClient = require('../../../src/clients/travisClient')
 
-jest.mock('node-fetch')
 const mockedJsonParse = jest.fn().mockResolvedValue({foo: 'bar'})
 fetch.mockResolvedValue({ json: mockedJsonParse })
 

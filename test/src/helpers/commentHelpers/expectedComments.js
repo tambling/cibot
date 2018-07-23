@@ -38,5 +38,4 @@ Hi @user, the CI build for your commit at 12345 had an error.
 For more details, you can see the whole build log <a href="http://foo.bar" target="_blank">here</a>.
 `
 
-
 }

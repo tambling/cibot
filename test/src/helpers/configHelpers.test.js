@@ -37,7 +37,6 @@ describe('shouldComment', () => {
     expect(shouldComment(config, build)).toBe(true)
   })
   it('should return true if the build errored and commentOnError is set', () => {
-  
     const config = constructConfig(false, false, true)
     const build = constructBuild(false, false, true)
 

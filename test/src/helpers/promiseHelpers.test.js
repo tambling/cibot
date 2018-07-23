@@ -10,7 +10,7 @@ describe('pollPromise', () => {
     const result = await pollPromise({initiate, getCandidate, checkCandidate})
 
     expect(result).toEqual('Resolved')
-  });
+  })
 
   it('rejects if it exceeds the maximum tries', () => {
     const getCandidate = () => false
@@ -21,12 +21,11 @@ describe('pollPromise', () => {
     pollPromise({initiate, getCandidate, checkCandidate, maxTries, wait})
       .catch((err) => {
         expect(err).toEqual(new Error('Maximum number of tries exceeded'))
-      
       })
   })
   it('sets a timeout and tries again', () => {
     const getCandidate = () => 'Resolved'
-    const checkCandidate = jest.fn().mockReturnValueOnce(false).mockReturnValue(true) 
+    const checkCandidate = jest.fn().mockReturnValueOnce(false).mockReturnValue(true)
     const maxTries = 2
     const wait = 0
 

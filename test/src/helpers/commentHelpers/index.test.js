@@ -1,11 +1,11 @@
-const { 
-  commentAttributesFromPullRequest, 
+const {
+  commentAttributesFromPullRequest,
   commentAttributesFromBuild,
   attributesToCommentBody
-} = require('../../../src/helpers/commentHelpers')
+} = require('../../../../src/helpers/commentHelpers')
 
-const jestParser = require('../../../src/parsers/jestParser')
-jest.mock('../../../src/parsers/jestParser')
+const jestParser = require('../../../../src/parsers/jestParser')
+jest.mock('../../../../src/parsers/jestParser')
 
 const {
   expectedPassed,
@@ -13,8 +13,8 @@ const {
   expectedMultipleFailure,
   expectedShortError,
   expectedLongError,
-  expectedNoError,
-} = require('../../fixtures/expectedComments')
+  expectedNoError
+} = require('./expectedComments')
 
 describe('commentAttributesFromPullRequest', () => {
   it('returns the right attributes from the pull request object', () => {
@@ -31,7 +31,7 @@ describe('commentAttributesFromPullRequest', () => {
     const actualParsedAttributes = commentAttributesFromPullRequest(rawAttributes)
 
     expect(actualParsedAttributes).toEqual(expectedParsedAttributes)
-  }) 
+  })
 })
 
 describe('commentAttributesFromBuild', () => {
@@ -59,11 +59,11 @@ describe('attributesToCommentBody', () => {
     audience: 'user',
     sha: '12345',
     link: 'http://foo.bar'
-  } 
+  }
 
   it('assembles the right comment for passed tests', () => {
     const actualComment = attributesToCommentBody({
-      ...staticAttributes, 
+      ...staticAttributes,
       outcome: 'passed'
     })
 
@@ -74,7 +74,7 @@ describe('attributesToCommentBody', () => {
     jestParser.getFailures.mockReturnValue([ 'Single failure' ])
 
     const actualComment = attributesToCommentBody({
-      ...staticAttributes, 
+      ...staticAttributes,
       outcome: 'failed'
     })
 
@@ -85,7 +85,7 @@ describe('attributesToCommentBody', () => {
     jestParser.getFailures.mockReturnValue([ 'First failure', 'Second failure' ])
 
     const actualComment = attributesToCommentBody({
-      ...staticAttributes, 
+      ...staticAttributes,
       outcome: 'failed'
     })
 
@@ -93,14 +93,14 @@ describe('attributesToCommentBody', () => {
   })
 
   it('assembles the right comment for a long error', () => {
-    jestParser.getErrors.mockReturnValue([ 
-      'Error line 1', 
-      'Error line 2', 
+    jestParser.getErrors.mockReturnValue([
+      'Error line 1',
+      'Error line 2',
       null, null, null, null
     ])
 
     const actualComment = attributesToCommentBody({
-      ...staticAttributes, 
+      ...staticAttributes,
       outcome: 'errored'
     })
 
@@ -108,14 +108,14 @@ describe('attributesToCommentBody', () => {
   })
 
   it('assembles the right comment for a short error', () => {
-    jestParser.getErrors.mockReturnValue([ 
-      'Error line 1', 
-      'Error line 2', 
+    jestParser.getErrors.mockReturnValue([
+      'Error line 1',
+      'Error line 2',
       'Error line 3'
     ])
 
     const actualComment = attributesToCommentBody({
-      ...staticAttributes, 
+      ...staticAttributes,
       outcome: 'errored'
     })
 
@@ -125,7 +125,7 @@ describe('attributesToCommentBody', () => {
     jestParser.getErrors.mockReturnValue([])
 
     const actualComment = attributesToCommentBody({
-      ...staticAttributes, 
+      ...staticAttributes,
       outcome: 'errored'
     })
 

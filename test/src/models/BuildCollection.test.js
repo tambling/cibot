@@ -1,5 +1,4 @@
 const BuildCollection = require('../../../src/models/BuildCollection')
-const Build = require('../../../src/models/Build')
 
 const { get, getRepoBuilds } = require('../../../src/clients/travisClient')
 jest.mock('../../../src/clients/travisClient')
@@ -22,7 +21,7 @@ describe('BuildCollection', () => {
       getRepoBuilds.mockResolvedValue({
         '@href': '/repo/user%2frepo/builds',
         builds: [
-          {...rawBuildAttributes, id: 1}, 
+          {...rawBuildAttributes, id: 1},
           {...rawBuildAttributes, id: 2}
         ]
       })
@@ -51,7 +50,7 @@ describe('BuildCollection', () => {
       get.mockResolvedValue({ builds: [
         {...rawBuildAttributes, id: 1},
         {...rawBuildAttributes, id: 2},
-        {...rawBuildAttributes, id: 3},
+        {...rawBuildAttributes, id: 3}
       ]})
     })
     it('fetches the href of the BuildCollection', () => {
@@ -69,8 +68,8 @@ describe('BuildCollection', () => {
       global.console = { warn: jest.fn() }
 
       const buildCollection = new BuildCollection({
-        builds: [], 
-        href: '', 
+        builds: [],
+        href: '',
         subset: true
       })
 
@@ -81,8 +80,8 @@ describe('BuildCollection', () => {
 
     it('sets the builds of the BuildCollection', () => {
       const buildCollection = new BuildCollection({
-        builds: [], 
-        href: '', 
+        builds: [],
+        href: ''
       })
 
       buildCollection.updateBuilds().then(() => {
@@ -115,7 +114,7 @@ describe('BuildCollection', () => {
         builds: [
           {...rawBuildAttributes, started_at: '2018-01-01'},
           {...rawBuildAttributes, started_at: '2018-07-01'},
-          {...rawBuildAttributes, started_at: '2018-03-01'},
+          {...rawBuildAttributes, started_at: '2018-03-01'}
         ]
       })
 
@@ -148,9 +147,7 @@ describe('BuildCollection', () => {
       args.getCandidate()
       expect(buildCollection.forPullRequest).toBeCalledWith(1)
 
-
       expect(args.checkCandidate(buildCollection)).toBe(3)
-    
     })
   })
 })

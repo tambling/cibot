@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Probot app that comments with the outcome of a CI build",
   "author": "Dean Tambling <dean@tambling.me> (http://tambling.me)",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "repository": "https://github.com/tambling/cibot.git",
   "homepage": "https://github.com/tambling/cibot",
   "bugs": "https://github.com/tambling/cibot/issues",
